@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { ThemeProvider } from "styled-components";
+import { CustomColors } from "../../../colors/Colors";
 
 const StyledCustomDetailButton = styled.button`
   width: 80px;
   height: 35px;
-  background-color: #4fc9da;
-  color: white;
+  background-color: ${(props) => props.theme.colors.skyBlue};
+  color: ${(props) => props.theme.colors.white};
   border-radius: 0.95rem;
   text-transform: uppercase;
   font-family: "Poppins";
@@ -14,14 +16,14 @@ const StyledCustomDetailButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: #e4e6ef;
-    color: black;
-    border: 1px solid #e4e6ef;
+    background-color: ${(props) => props.theme.colors.grey};
+    color: ${(props) => props.theme.colors.black};
+    border: 1px solid ${(props) => props.theme.colors.grey};
   }
 `;
 
-const CustomDetailButton = ({ children }: any) => (
-  <StyledCustomDetailButton>{children}</StyledCustomDetailButton>
+export const CustomDetailButton = ({ children }: { children: React.ReactNode }) => (
+  <ThemeProvider theme={CustomColors}>
+    <StyledCustomDetailButton>{children}</StyledCustomDetailButton>
+  </ThemeProvider>
 );
-
-export default CustomDetailButton;

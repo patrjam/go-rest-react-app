@@ -1,6 +1,6 @@
-class Endpoints {
-  static readonly PUBLIC_API = 'https://gorest.co.in/public-api';
-  static readonly POSTS = `${Endpoints.PUBLIC_API}/posts`;
-}
+const PUBLIC_API = "https://gorest.co.in/public-api";
 
-export default Endpoints;
+export const Endpoints = {
+  PUBLIC_API,
+  POSTS: `${PUBLIC_API}/posts`,
+};

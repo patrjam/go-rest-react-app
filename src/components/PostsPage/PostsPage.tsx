@@ -1,16 +1,29 @@
 import React from "react";
-import PostItem from "../PostItem/PostItem";
-import CustomCreateButton from "../CustomButtons/CustomCreateButton/CustomCreateButton";
-import BearerTokenAuth from "../../configs/BearerTokenAuth";
-import Endpoints from "../../configs/Endpoints";
+import { PostItem } from "../PostItem/PostItem";
+import { CustomCreateButton } from "../CustomButtons/CustomCreateButton/CustomCreateButton";
+import { BearerTokenAuth } from "../../configs/BearerTokenAuth";
+import { Endpoints } from "../../configs/Endpoints";
+import styled from "styled-components";
 
+const StyledH1 = styled.h1`
+  text-align: center;
+`;
+
+const StyledTable = styled.table`
+  margin-left: 10%;
+`;
 
 type PostsPageProps = {
-    id: number,
-    title: string
-}
-class PostsPage extends React.Component<any, any> {
-  constructor(props: any) {
+  id: number;
+  title: string;
+};
+
+type Props = {};
+type State = {
+  posts: PostsPageProps[];
+};
+class PostsPage extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -18,29 +31,32 @@ class PostsPage extends React.Component<any, any> {
     };
   }
 
+  async fetchResponseJSON() {
+    const response = await fetch(Endpoints.POSTS, BearerTokenAuth);
+    return await response.json();
+  }
+
   componentDidMount() {
-    fetch(Endpoints.POSTS, BearerTokenAuth)
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ posts: data.data });
-      });
+    this.fetchResponseJSON().then((data) => {
+      this.setState({ posts: data.data });
+    });
   }
 
   render() {
     const { posts } = this.state;
     return (
       <div className="postsPage">
-        <h1>POSTS PAGE</h1>
+        <StyledH1>POSTS PAGE</StyledH1>
         <CustomCreateButton>Create post</CustomCreateButton>
         <br />
         <br />
-        <table>
+        <StyledTable>
           <tbody>
-            {posts.map(({ id, title }: PostsPageProps) => (
+            {posts.map(({ id, title }) => (
               <PostItem key={id} id={id} title={title} />
             ))}
           </tbody>
-        </table>
+        </StyledTable>
       </div>
     );
   }
