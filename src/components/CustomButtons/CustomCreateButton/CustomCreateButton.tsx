@@ -1,24 +1,8 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
+import { CustomColors } from "../../../colors/Colors";
 
-export type Colors = {
-  colors: {
-    salmon?: string;
-    skyblue?: string;
-    white?: string;
-    grey?: string;
-    black?: string;
-  };
-};
-const CustomCreateButtonColors: Colors = {
-  colors: {
-    salmon: "#db5437",
-    white: "#FFFFFF",
-    grey: "#e4e6ef",
-    black: "#000000",
-  },
-};
 const StyledCustomCreateButton = styled.button`
   width: 120px;
   height: 35px;
@@ -38,8 +22,12 @@ const StyledCustomCreateButton = styled.button`
   }
 `;
 
-export const CustomCreateButton = ({ children }: { children: React.ReactNode }) => (
-  <ThemeProvider theme={CustomCreateButtonColors}>
+export const CustomCreateButton = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => (
+  <ThemeProvider theme={CustomColors}>
     <StyledCustomCreateButton>{children}</StyledCustomCreateButton>
   </ThemeProvider>
 );

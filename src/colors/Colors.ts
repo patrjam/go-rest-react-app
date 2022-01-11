@@ -1,14 +1,6 @@
-type Colors = {
-  colors: {
-    salmon?: string;
-    skyBlue?: string;
-    white?: string;
-    grey?: string;
-    black?: string;
-  };
-};
+type Colors = typeof CustomColors;
 
-export const CustomColors: Colors = {
+export const CustomColors = {
   colors: {
     salmon: "#db5437",
     skyBlue: "#4fc9da",

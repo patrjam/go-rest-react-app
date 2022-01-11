@@ -1,5 +1,5 @@
 export const BearerTokenAuth = {
   headers: {
-    Authorization: process.env.ACCESS_TOKEN as string,
+    Authorization: process.env.REACT_APP_ACCESS_TOKEN as string,
   },
 };

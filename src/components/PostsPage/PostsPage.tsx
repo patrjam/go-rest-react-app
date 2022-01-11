@@ -36,16 +36,15 @@ class PostsPage extends React.Component<Props, State> {
     return await response.json();
   }
 
-  componentDidMount() {
-    this.fetchResponseJSON().then((data) => {
-      this.setState({ posts: data.data });
-    });
+  async componentDidMount() {
+    const response = await this.fetchResponseJSON();
+    this.setState({ posts: response.data });
   }
 
   render() {
     const { posts } = this.state;
     return (
-      <div className="postsPage">
+      <div>
         <StyledH1>POSTS PAGE</StyledH1>
         <CustomCreateButton>Create post</CustomCreateButton>
         <br />
