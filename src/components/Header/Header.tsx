@@ -6,7 +6,7 @@ import { AppRoutes } from "../../configs/AppRoutes";
 import { CustomColors } from "../../colors/Colors";
 
 const StyledMenu = styled.div`
-  width: 75%;
+  width: 85%;
   height: 100%;
   display: flex;
   align-items: center;
