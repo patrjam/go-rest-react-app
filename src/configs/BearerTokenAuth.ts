@@ -1,5 +1,7 @@
-export const BearerTokenAuth = {
+import { appEnvs } from "./envValidator";
+
+export const bearerTokenAuth = {
   headers: {
-    Authorization: process.env.REACT_APP_ACCESS_TOKEN as string,
+    Authorization: appEnvs.BEARER_TOKEN,
   },
 };

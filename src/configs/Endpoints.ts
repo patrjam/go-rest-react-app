@@ -1,6 +1,6 @@
 const PUBLIC_API = "https://gorest.co.in/public-api";
 
-export const Endpoints = {
+export const endpoints = {
   PUBLIC_API,
   POSTS: `${PUBLIC_API}/posts`,
 };

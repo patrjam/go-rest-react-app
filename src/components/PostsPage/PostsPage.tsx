@@ -1,8 +1,8 @@
 import React from "react";
 import { PostItem } from "../PostItem/PostItem";
 import { CustomCreateButton } from "../CustomButtons/CustomCreateButton/CustomCreateButton";
-import { BearerTokenAuth } from "../../configs/BearerTokenAuth";
-import { Endpoints } from "../../configs/Endpoints";
+import { bearerTokenAuth } from "../../configs/bearerTokenAuth";
+import { endpoints } from "../../configs/endpoints";
 import styled from "styled-components";
 
 const StyledH1 = styled.h1`
@@ -32,7 +32,7 @@ class PostsPage extends React.Component<Props, State> {
   }
 
   async fetchResponseJSON() {
-    const response = await fetch(Endpoints.POSTS, BearerTokenAuth);
+    const response = await fetch(endpoints.POSTS, bearerTokenAuth);
     return await response.json();
   }
 
