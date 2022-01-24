@@ -1,7 +1,6 @@
 import React from "react";
-import { ThemeProvider } from "styled-components";
+
 import styled from "styled-components";
-import { CustomColors } from "../../../colors/Colors";
 
 const StyledCustomCreateButton = styled.button`
   width: 120px;
@@ -26,8 +25,4 @@ export const CustomCreateButton = ({
   children,
 }: {
   children: React.ReactNode;
-}) => (
-  <ThemeProvider theme={CustomColors}>
-    <StyledCustomCreateButton>{children}</StyledCustomCreateButton>
-  </ThemeProvider>
-);
+}) => <StyledCustomCreateButton>{children}</StyledCustomCreateButton>;

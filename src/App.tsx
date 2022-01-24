@@ -9,6 +9,8 @@ import styled from "styled-components";
 import { appRoutesList } from "./configs/appRoutesList";
 import { NewPost } from "./components/NewPost/NewPost";
 import NetworkDetector from "./components/NetworkDetector/NetworkDetector";
+import { ThemeProvider } from "styled-components";
+import { CustomColors } from "./colors/Colors";
 
 const CustomFont = styled.div`
   font-family: "Poppins";
@@ -19,18 +21,21 @@ const CustomFont = styled.div`
 function App() {
   return (
     <div>
+      <ThemeProvider theme={CustomColors}>
       <CustomFont>
         <Header />
         <div>
           <Routes>
-            <Route path={appRoutesList.home_url} element={<HomePage />} />
-            <Route path={appRoutesList.posts_url} element={<PostsPage />} />
-            <Route path={appRoutesList.comments_url} element={<CommentsPage />} />
-            <Route path={appRoutesList.users_url} element={<UsersPage />} />
-            <Route path={appRoutesList.newPost_url} element={<NewPost />} />
+            <Route path={appRoutesList.homeUrl} element={<HomePage />} />
+            <Route path={appRoutesList.postsUrl} element={<PostsPage />} />
+            <Route path={appRoutesList.commentsUrl} element={<CommentsPage />} />
+            <Route path={appRoutesList.usersUrl} element={<UsersPage />} />
+            <Route path={appRoutesList.newPostUrl} element={<NewPost />} />
           </Routes>
         </div>
       </CustomFont>
+      </ThemeProvider>
+      
     </div>
   );
 }

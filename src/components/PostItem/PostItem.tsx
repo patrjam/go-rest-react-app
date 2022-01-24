@@ -1,8 +1,6 @@
 import React from "react";
 import { CustomDetailButton } from "../CustomButtons/CustomDetailButton/CustomDetailButton";
 import colors from "styled-components";
-import { ThemeProvider } from "styled-components";
-import { CustomColors } from "../../colors/Colors";
 
 const StyledRowId = colors.td`
   color: ${(props) => props.theme.colors.salmon};
@@ -15,9 +13,7 @@ type PostItemProps = {
 
 export const PostItem = ({ id, title }: PostItemProps) => (
   <tr>
-    <ThemeProvider theme={CustomColors}>
-      <StyledRowId>{id}</StyledRowId>
-    </ThemeProvider>
+    <StyledRowId>{id}</StyledRowId>
 
     <td>{title}</td>
     <td>

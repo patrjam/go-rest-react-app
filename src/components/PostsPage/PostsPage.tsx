@@ -26,12 +26,15 @@ type State = {
 };
 export const PostsPage = () => {
   const [allPosts, setAllPosts] = useState<State>({ posts: [] });
-  const [responseFetchError, setResponseFetchError] = useState<boolean>(false);
+  const [responseFetchError, setResponseFetchError] = useState(false);
 
   useEffect(() => {
     const fetchFunc = async () => {
       try {
-        const response = await fetch(apiEndpoints.POSTS, bearerTokenAuthorization);
+        const response = await fetch(
+          apiEndpoints.POSTS,
+          bearerTokenAuthorization
+        );
         const resJson = await response.json();
         setAllPosts({ posts: resJson.data });
       } catch (error) {
@@ -41,11 +44,10 @@ export const PostsPage = () => {
     fetchFunc();
   }, []);
 
-  const { posts } = allPosts;
   return (
     <div>
       <StyledH1>POSTS PAGE</StyledH1>
-      <Link to={appRoutesList.newPost_url}>
+      <Link to={appRoutesList.newPostUrl}>
         <CustomCreateButton>Create post</CustomCreateButton>
       </Link>
       <br />
@@ -55,7 +57,7 @@ export const PostsPage = () => {
       ) : (
         <StyledTable>
           <tbody>
-            {posts.map(({ id, title }) => (
+            {allPosts.posts.map(({ id, title }) => (
               <PostItem key={id} id={id} title={title} />
             ))}
           </tbody>

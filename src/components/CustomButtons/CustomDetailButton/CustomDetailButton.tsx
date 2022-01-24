@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { ThemeProvider } from "styled-components";
-import { CustomColors } from "../../../colors/Colors";
 
 const StyledCustomDetailButton = styled.button`
   width: 80px;
@@ -22,8 +20,8 @@ const StyledCustomDetailButton = styled.button`
   }
 `;
 
-export const CustomDetailButton = ({ children }: { children: React.ReactNode }) => (
-  <ThemeProvider theme={CustomColors}>
-    <StyledCustomDetailButton>{children}</StyledCustomDetailButton>
-  </ThemeProvider>
-);
+export const CustomDetailButton = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => <StyledCustomDetailButton>{children}</StyledCustomDetailButton>;

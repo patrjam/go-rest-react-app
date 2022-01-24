@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ThemeProvider } from "styled-components";
-import { CustomColors } from "../../colors/Colors";
+import { responseMessages } from "../../constants/responseMessages";
 
 type DivMessageProps = {
   isOpen: boolean;
@@ -56,116 +55,28 @@ export const AlertMessage = ({
   responseStatus: number;
   isOpen: boolean;
 }) => {
-  <ThemeProvider theme={CustomColors}></ThemeProvider>;
-
-  switch (responseStatus) {
-    case 200:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <SuccessDivMessage isOpen={isOpen}>
-            OK. Everything worked as expected.
-          </SuccessDivMessage>
-        </ThemeProvider>
-      );
-    case 201:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <SuccessDivMessage isOpen={isOpen}>
-            A resource was successfully created.
-          </SuccessDivMessage>
-        </ThemeProvider>
-      );
-    case 204:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <SuccessDivMessage isOpen={isOpen}>
-            The request was handled successfully and the response contains no
-            body content.
-          </SuccessDivMessage>
-        </ThemeProvider>
-      );
-    case 304:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <WarningDivMessage isOpen={isOpen}>
-            The resource was not modified. You can use the cached version.
-          </WarningDivMessage>
-        </ThemeProvider>
-      );
-    case 400:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <ErrorDivMessage isOpen={isOpen}>Bad request.</ErrorDivMessage>;
-        </ThemeProvider>
-      );
-    case 401:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <ErrorDivMessage isOpen={isOpen}>
-            Authentication failed.
-          </ErrorDivMessage>
-        </ThemeProvider>
-      );
-    case 403:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <WarningDivMessage isOpen={isOpen}>
-            The authenticated user is not allowed to access the specified API
-            endpoint.
-          </WarningDivMessage>
-        </ThemeProvider>
-      );
-    case 404:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <ErrorDivMessage isOpen={isOpen}>
-            The requested resource does not exist.
-          </ErrorDivMessage>
-        </ThemeProvider>
-      );
-    case 405:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <WarningDivMessage isOpen={isOpen}>
-            Method not allowed. Please check the Allow header for the allowed
-            HTTP methods.
-          </WarningDivMessage>
-        </ThemeProvider>
-      );
-    case 415:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <WarningDivMessage isOpen={isOpen}>
-            Unsupported media type. The requested content type or version number
-            is invalid.
-          </WarningDivMessage>
-        </ThemeProvider>
-      );
-    case 422:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <ErrorDivMessage isOpen={isOpen}>
-            Data validation failed.
-          </ErrorDivMessage>
-        </ThemeProvider>
-      );
-    case 429:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <WarningDivMessage isOpen={isOpen}>
-            Too many requests. The request was rejected due to rate limiting.
-          </WarningDivMessage>
-        </ThemeProvider>
-      );
-    case 500:
-      return (
-        <ThemeProvider theme={CustomColors}>
-          <ErrorDivMessage isOpen={isOpen}>
-            Internal server error.
-          </ErrorDivMessage>
-        </ThemeProvider>
-      );
-  }
-
-  return <div></div>;
+  if (responseStatus < 300) {
+    return (
+      <SuccessDivMessage isOpen={isOpen}>
+        {responseMessages[responseStatus]}
+      </SuccessDivMessage>
+    );
+  } else if (
+    responseStatus === 304 ||
+    responseStatus === 403 ||
+    responseStatus === 405 ||
+    responseStatus === 415 ||
+    responseStatus === 429
+  ) {
+    return (
+      <WarningDivMessage isOpen={isOpen}>
+        {responseMessages[responseStatus]}
+      </WarningDivMessage>
+    );
+  } else
+    return (
+      <ErrorDivMessage isOpen={isOpen}>
+        {responseMessages[responseStatus]}
+      </ErrorDivMessage>
+    );
 };

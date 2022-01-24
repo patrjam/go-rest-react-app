@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { CustomColors } from "../../colors/Colors";
+import { GOOGLE } from "../../configs/apiEndpoints";
 
 const StyledOffline = styled.div`
   height: 10px;
@@ -18,7 +19,7 @@ const StyledSpan = styled.span`
 
 export default function (ComposedComponent: React.FunctionComponent) {
   const NetworkDetector = () => {
-    const [isDisconnected, setIsDisconnected] = useState<boolean>(false);
+    const [isDisconnected, setIsDisconnected] = useState(false);
 
     useEffect(() => {
       handleConnectionChange();
@@ -35,16 +36,19 @@ export default function (ComposedComponent: React.FunctionComponent) {
       const condition = navigator.onLine ? "online" : "offline";
       if (condition === "online") {
         const webPing = setInterval(() => {
-          fetch("//google.com", {
-            mode: "no-cors",
-          })
-            .then(() => {
+          (async function () {
+            try {
+              await fetch(GOOGLE, {
+                mode: "no-cors",
+              });
               setIsDisconnected(() => {
                 clearInterval(webPing);
                 return false;
               });
-            })
-            .catch(() => setIsDisconnected(true));
+            } catch (error) {
+              setIsDisconnected(true);
+            }
+          })();
         }, 2000);
         return;
       }

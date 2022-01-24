@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ThemeProvider } from "styled-components";
-import { CustomColors } from "../../../colors/Colors";
 
 const StyledCustomBackButton = styled.button`
   width: 99px;
@@ -39,9 +37,7 @@ export const CustomBackButton = ({
   children: React.ReactNode;
   url: string;
 }) => (
-  <ThemeProvider theme={CustomColors}>
-    <StyledLogoLink to={url}>
-      <StyledCustomBackButton>{children}</StyledCustomBackButton>
-    </StyledLogoLink>
-  </ThemeProvider>
+  <StyledLogoLink to={url}>
+    <StyledCustomBackButton>{children}</StyledCustomBackButton>
+  </StyledLogoLink>
 );

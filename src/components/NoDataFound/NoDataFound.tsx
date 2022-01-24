@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { ThemeProvider } from "styled-components";
-import { CustomColors } from "../../colors/Colors";
 
 const NoDataFoundDiv = styled.div`
   position: relative;
@@ -15,7 +13,5 @@ const NoDataFoundDiv = styled.div`
 `;
 
 export const NoDataFound = () => (
-  <ThemeProvider theme={CustomColors}>
-    <NoDataFoundDiv>Something went wrong. No data found.</NoDataFoundDiv>
-  </ThemeProvider>
+  <NoDataFoundDiv>Something went wrong. No data found.</NoDataFoundDiv>
 );

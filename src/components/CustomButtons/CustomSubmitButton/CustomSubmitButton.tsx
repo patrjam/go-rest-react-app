@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { ThemeProvider } from "styled-components";
-import { CustomColors } from "../../../colors/Colors";
 
 const StyledCustomSubmitButton = styled.button`
   width: 100px;
@@ -29,8 +27,4 @@ export const CustomSubmitButton = ({
   children,
 }: {
   children: React.ReactNode;
-}) => (
-  <ThemeProvider theme={CustomColors}>
-    <StyledCustomSubmitButton>{children}</StyledCustomSubmitButton>
-  </ThemeProvider>
-);
+}) => <StyledCustomSubmitButton>{children}</StyledCustomSubmitButton>;

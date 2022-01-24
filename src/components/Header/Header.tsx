@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/home.svg";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 import { appRoutesList } from "../../configs/appRoutesList";
-import { CustomColors } from "../../colors/Colors";
 
 const StyledMenu = styled.div`
   width: 85%;
@@ -34,18 +33,16 @@ export const Header = () => (
   <div>
     <StyledMenu>
       <div>
-        <StyledLogoLink to={appRoutesList.home_url}>
+        <StyledLogoLink to={appRoutesList.homeUrl}>
           <Logo />
         </StyledLogoLink>
       </div>
 
-      <ThemeProvider theme={CustomColors}>
-        <div>
-          <StyledOption to={appRoutesList.posts_url}>POSTS</StyledOption>
-          <StyledOption to={appRoutesList.comments_url}>COMMENTS</StyledOption>
-          <StyledOption to={appRoutesList.users_url}>USERS</StyledOption>
-        </div>
-      </ThemeProvider>
+      <div>
+        <StyledOption to={appRoutesList.postsUrl}>POSTS</StyledOption>
+        <StyledOption to={appRoutesList.commentsUrl}>COMMENTS</StyledOption>
+        <StyledOption to={appRoutesList.usersUrl}>USERS</StyledOption>
+      </div>
     </StyledMenu>
   </div>
 );

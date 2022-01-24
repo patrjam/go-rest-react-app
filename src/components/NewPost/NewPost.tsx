@@ -4,12 +4,10 @@ import { CustomFormInput } from "../CustomInputForm/CustomInputForm";
 import styled from "styled-components";
 import { CustomSubmitButton } from "../CustomButtons/CustomSubmitButton/CustomSubmitButton";
 import { CustomBackButton } from "../CustomButtons/CustomBackButton/CustomBackButton";
-import { apiEndpoints } from "../../configs/apiEndpoints";
+import { apiEndpoints, PUBLIC_V1 } from "../../configs/apiEndpoints";
 import { appRoutesList } from "../../configs/appRoutesList";
 import { AlertMessage } from "../AlertMessage/AlertMessage";
 import { NoDataFound } from "../NoDataFound/NoDataFound";
-import { ThemeProvider } from "styled-components";
-import { CustomColors } from "../../colors/Colors";
 
 const StyledH1 = styled.h1`
   text-align: center;
@@ -43,8 +41,8 @@ export const NewPost = () => {
   });
   const [allUsers, setAllUsers] = useState<Users>({ users: [] });
   const [statusMessage, setStatusMessage] = useState<number>(0);
-  const [displayedToastr, setDisplayedToastr] = useState<boolean>(false);
-  const [responseFetchError, setResponseFetchError] = useState<boolean>(false);
+  const [displayedToastr, setDisplayedToastr] = useState(false);
+  const [responseFetchError, setResponseFetchError] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -52,7 +50,10 @@ export const NewPost = () => {
     }, 3000);
     const fetchFunc = async () => {
       try {
-        const response = await fetch(apiEndpoints.USERS, bearerTokenAuthorization);
+        const response = await fetch(
+          apiEndpoints.USERS,
+          bearerTokenAuthorization
+        );
         const resJson = await response.json();
         setAllUsers({ users: resJson.data });
       } catch (error) {
@@ -62,10 +63,10 @@ export const NewPost = () => {
     fetchFunc();
   }, [displayedToastr]);
 
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent<EventTarget>) => {
     const fetchFuncPost = async () => {
       const response = await fetch(
-        `https://gorest.co.in/public/v1/users/${postData.userId}/posts`,
+        `${PUBLIC_V1}/users/${postData.userId}/posts`,
         {
           method: "POST",
           headers: bearerTokenAuthorization.headers,
@@ -75,19 +76,21 @@ export const NewPost = () => {
       setStatusMessage(response.status);
       setDisplayedToastr(true);
     };
+
     fetchFuncPost();
     event.preventDefault();
     setPostData({ userId: "", title: "", body: "" });
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { id, value } = event.target;
 
-    setPostData({ ...postData, [id]: value });
+    setPostData((prevState) => ({ ...prevState, [id]: value }));
   };
-
-  const { userId, title, body } = postData;
-  const { users } = allUsers;
 
   return (
     <div>
@@ -104,23 +107,21 @@ export const NewPost = () => {
         <NoDataFound />
       ) : (
         <form onSubmit={handleSubmit}>
-          <ThemeProvider theme={CustomColors}>
-            <StyledSelect
-              id="userId"
-              onChange={handleChange}
-              required
-              value={userId}
-            >
-              <option value=""> -- select an user -- </option>
-              {users.map(({ id, name }) => (
-                <option key={id} value={id}>{`${name} [ID:${id}]`}</option>
-              ))}
-            </StyledSelect>
-          </ThemeProvider>
+          <StyledSelect
+            id="userId"
+            onChange={handleChange}
+            required
+            value={postData.userId}
+          >
+            <option value=""> -- select an user -- </option>
+            {allUsers.users.map(({ id, name }) => (
+              <option key={id} value={id}>{`${name} [ID:${id}]`}</option>
+            ))}
+          </StyledSelect>
 
           <CustomFormInput
             id="title"
-            value={title}
+            value={postData.title}
             label="Title"
             onChange={handleChange}
             required
@@ -129,12 +130,12 @@ export const NewPost = () => {
           <CustomFormInput
             id="body"
             label="Description"
-            value={body}
+            value={postData.body}
             onChange={handleChange}
             required
           />
 
-          <CustomBackButton url={appRoutesList.posts_url}>Back</CustomBackButton>
+          <CustomBackButton url={appRoutesList.postsUrl}>Back</CustomBackButton>
 
           <CustomSubmitButton>Save</CustomSubmitButton>
         </form>

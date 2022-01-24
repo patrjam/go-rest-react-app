@@ -1,6 +1,5 @@
 import React from "react";
-import styled, { ThemeProvider } from "styled-components";
-import { CustomColors } from "../../colors/Colors";
+import styled from "styled-components";
 
 const StyledInput = styled.input`
   font-size: 16px;
@@ -12,13 +11,16 @@ const StyledInput = styled.input`
   margin: 25px 0;
 `;
 
+type CustomInputFormType = {
+  label: string;
+} & React.InputHTMLAttributes<HTMLInputElement>;
+
 export const CustomFormInput = ({
-  handleChange,
   label,
   ...otherProps
-}: any) => (
-  <ThemeProvider theme={CustomColors}>
-    <StyledInput onChange={handleChange} {...otherProps} />
+}: CustomInputFormType) => (
+  <div>
+    <StyledInput {...otherProps} />
     {label ? <label>{label}</label> : null}
-  </ThemeProvider>
+  </div>
 );
