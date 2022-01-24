@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/home.svg";
 import styled, { ThemeProvider } from "styled-components";
-import { appRoutes } from "../../configs/appRoutes";
+import { appRoutesList } from "../../configs/appRoutesList";
 import { CustomColors } from "../../colors/Colors";
 
 const StyledMenu = styled.div`
@@ -34,16 +34,16 @@ export const Header = () => (
   <div>
     <StyledMenu>
       <div>
-        <StyledLogoLink to={appRoutes.home_url}>
+        <StyledLogoLink to={appRoutesList.home_url}>
           <Logo />
         </StyledLogoLink>
       </div>
 
       <ThemeProvider theme={CustomColors}>
         <div>
-          <StyledOption to={appRoutes.posts_url}>POSTS</StyledOption>
-          <StyledOption to={appRoutes.comments_url}>COMMENTS</StyledOption>
-          <StyledOption to={appRoutes.users_url}>USERS</StyledOption>
+          <StyledOption to={appRoutesList.posts_url}>POSTS</StyledOption>
+          <StyledOption to={appRoutesList.comments_url}>COMMENTS</StyledOption>
+          <StyledOption to={appRoutesList.users_url}>USERS</StyledOption>
         </div>
       </ThemeProvider>
     </StyledMenu>

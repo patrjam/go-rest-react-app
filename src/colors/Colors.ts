@@ -1,5 +1,3 @@
-type Colors = typeof CustomColors;
-
 export const CustomColors = {
   colors: {
     salmon: "#db5437",
@@ -7,5 +5,21 @@ export const CustomColors = {
     white: "#FFFFFF",
     grey: "#e4e6ef",
     black: "#000000",
+    lime: "#b8d935",
+    royalBlue: "#4f55da",
+    darkGrey: "#41464b",
+    softGrey: "#e2e3e5",
+    lightGrey: "#d3d6d8",
+    gray: "#808080",
+    softYellow: "#ffecb5",
+    olive: "#664d03",
+    lightYellow: "#fff3cd",
+    softRed: "#f5c2c7",
+    burgundy: "#842029",
+    lightRed: "#f8d7da",
+    softGreen: "#badbcc",
+    darkGreen: "#0f5132",
+    lightGreen: "#d1e7dd",
+    red: "#ff0000",
   },
 };
