@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { bearerTokenAuthorization } from "../../configs/bearerTokenAuthorization";
 import { CustomFormInput } from "../CustomInputForm/CustomInputForm";
 import styled from "styled-components";
 import { CustomSubmitButton } from "../CustomButtons/CustomSubmitButton/CustomSubmitButton";
@@ -8,6 +7,7 @@ import { apiEndpoints, PUBLIC_V1 } from "../../configs/apiEndpoints";
 import { appRoutesList } from "../../configs/appRoutesList";
 import { AlertMessage } from "../AlertMessage/AlertMessage";
 import { NoDataFound } from "../NoDataFound/NoDataFound";
+import { customFetch } from "../../customFunctions/customFetch";
 
 const StyledH1 = styled.h1`
   text-align: center;
@@ -48,36 +48,35 @@ export const NewPost = () => {
     setTimeout(() => {
       setDisplayedToastr(false);
     }, 3000);
-    const fetchFunc = async () => {
+    const handleGetResponse = async () => {
       try {
-        const response = await fetch(
-          apiEndpoints.USERS,
-          bearerTokenAuthorization
-        );
-        const resJson = await response.json();
-        setAllUsers({ users: resJson.data });
+        const response = await customFetch(apiEndpoints.USERS, "GET");
+        if (response.ok === true) {
+          const resJson = await response.json();
+          setAllUsers({ users: resJson.data });
+        } else {
+          setAllUsers({ users: [] });
+          setResponseFetchError(true);
+        }
       } catch (error) {
         setResponseFetchError(true);
       }
     };
-    fetchFunc();
+    handleGetResponse();
   }, [displayedToastr]);
 
   const handleSubmit = async (event: React.FormEvent<EventTarget>) => {
-    const fetchFuncPost = async () => {
-      const response = await fetch(
+    const handlePostRequest = async () => {
+      const response = await customFetch(
         `${PUBLIC_V1}/users/${postData.userId}/posts`,
-        {
-          method: "POST",
-          headers: bearerTokenAuthorization.headers,
-          body: JSON.stringify(postData),
-        }
+        "POST",
+        postData
       );
       setStatusMessage(response.status);
       setDisplayedToastr(true);
     };
 
-    fetchFuncPost();
+    handlePostRequest();
     event.preventDefault();
     setPostData({ userId: "", title: "", body: "" });
   };

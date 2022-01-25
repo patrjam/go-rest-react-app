@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { PostItem } from "../PostItem/PostItem";
 import { CustomCreateButton } from "../CustomButtons/CustomCreateButton/CustomCreateButton";
-import { bearerTokenAuthorization } from "../../configs/bearerTokenAuthorization";
 import { apiEndpoints } from "../../configs/apiEndpoints";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { appRoutesList } from "../../configs/appRoutesList";
 import { NoDataFound } from "../NoDataFound/NoDataFound";
+import { customFetch } from "../../customFunctions/customFetch";
 
 const StyledH1 = styled.h1`
   text-align: center;
@@ -29,19 +29,21 @@ export const PostsPage = () => {
   const [responseFetchError, setResponseFetchError] = useState(false);
 
   useEffect(() => {
-    const fetchFunc = async () => {
+    const handleGetPostsData = async () => {
       try {
-        const response = await fetch(
-          apiEndpoints.POSTS,
-          bearerTokenAuthorization
-        );
-        const resJson = await response.json();
-        setAllPosts({ posts: resJson.data });
+        const response = await customFetch(apiEndpoints.POSTS, "GET");
+        if (response.ok) {
+          const resJson = await response.json();
+          setAllPosts({ posts: resJson.data });
+        } else {
+          setAllPosts({ posts: [] });
+          setResponseFetchError(true);
+        }
       } catch (error) {
         setResponseFetchError(true);
       }
     };
-    fetchFunc();
+    handleGetPostsData();
   }, []);
 
   return (
