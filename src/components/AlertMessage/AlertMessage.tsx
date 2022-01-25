@@ -48,35 +48,36 @@ const SuccessDivMessage = styled.div<DivMessageProps>`
   visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
 `;
 
-export const AlertMessage = ({
-  responseStatus,
-  isOpen,
-}: {
+type AlertMessageProps = {
   responseStatus: number;
   isOpen: boolean;
-}) => {
-  if (responseStatus < 300) {
-    return (
-      <SuccessDivMessage isOpen={isOpen}>
-        {responseMessages[responseStatus]}
-      </SuccessDivMessage>
-    );
-  } else if (
-    responseStatus === 304 ||
-    responseStatus === 403 ||
-    responseStatus === 405 ||
-    responseStatus === 415 ||
-    responseStatus === 429
-  ) {
-    return (
-      <WarningDivMessage isOpen={isOpen}>
-        {responseMessages[responseStatus]}
-      </WarningDivMessage>
-    );
-  } else
-    return (
-      <ErrorDivMessage isOpen={isOpen}>
-        {responseMessages[responseStatus]}
-      </ErrorDivMessage>
-    );
+};
+
+export const AlertMessage = (props: AlertMessageProps) => {
+  switch (props.responseStatus) {
+    case 200:
+    case 201:
+    case 204:
+      return (
+        <SuccessDivMessage isOpen={props.isOpen}>
+          {responseMessages[props.responseStatus]}
+        </SuccessDivMessage>
+      );
+    case 304:
+    case 403:
+    case 405:
+    case 415:
+    case 429:
+      return (
+        <WarningDivMessage isOpen={props.isOpen}>
+          {responseMessages[props.responseStatus]}
+        </WarningDivMessage>
+      );
+    default:
+      return (
+        <ErrorDivMessage isOpen={props.isOpen}>
+          {responseMessages[props.responseStatus]}
+        </ErrorDivMessage>
+      );
+  }
 };
