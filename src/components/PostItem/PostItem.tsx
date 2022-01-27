@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomDetailButton } from "../CustomButtons/CustomDetailButton/CustomDetailButton";
+import { StyledCustomDetailButton } from "../CustomButtons/CustomDetailButton/StyledCustomDetailButton";
 import colors from "styled-components";
 
 const StyledRowId = colors.td`
@@ -17,7 +17,7 @@ export const PostItem = ({ id, title }: PostItemProps) => (
 
     <td>{title}</td>
     <td>
-      <CustomDetailButton>Detail</CustomDetailButton>
+      <StyledCustomDetailButton>Detail</StyledCustomDetailButton>
     </td>
   </tr>
 );
