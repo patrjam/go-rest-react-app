@@ -3,11 +3,12 @@ import { CustomFormInput } from "../CustomInputForm/CustomInputForm";
 import styled from "styled-components";
 import { StyledCustomSubmitButton } from "../CustomButtons/CustomSubmitButton/StyledCustomSubmitButton";
 import { CustomBackButton } from "../CustomButtons/CustomBackButton/CustomBackButton";
-import { apiEndpoints, PUBLIC_V1 } from "../../configs/apiEndpoints";
+import { apiEndpoints } from "../../configs/apiEndpoints";
 import { appRoutesList } from "../../configs/appRoutesList";
 import { AlertMessage } from "../AlertMessage/AlertMessage";
 import { NoDataFound } from "../NoDataFound/NoDataFound";
 import { customFetch } from "../../customFunctions/customFetch";
+import { getUserPostsUrl } from "../../customFunctions/getEndpoints";
 
 const StyledH1 = styled.h1`
   text-align: center;
@@ -64,13 +65,10 @@ export const NewPost = () => {
   const handleSubmit = async (event: React.FormEvent<EventTarget>) => {
     const handlePostRequest = async () => {
       try {
-        const response = await customFetch(
-          `${PUBLIC_V1}/users/${postData.userId}/posts`,
-          {
-            method: "POST",
-            body: JSON.stringify(postData),
-          }
-        );
+        const response = await customFetch(getUserPostsUrl(postData.userId), {
+          method: "POST",
+          body: JSON.stringify(postData),
+        });
         setStatusMessage(response.status);
         setDisplayedToastr(true);
       } catch (error) {
