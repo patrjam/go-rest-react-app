@@ -17,58 +17,52 @@ const StyledSpan = styled.span`
   font-size: smaller;
 `;
 
-export default function (ComposedComponent: React.FunctionComponent) {
-  const NetworkDetector = () => {
-    const [isDisconnected, setIsDisconnected] = useState(false);
+export const NetworkDetector = (props: { children: React.ReactNode }) => {
+  const [isDisconnected, setIsDisconnected] = useState(false);
 
-    useEffect(() => {
-      handleConnectionChange();
-      window.addEventListener("online", handleConnectionChange);
-      window.addEventListener("offline", handleConnectionChange);
+  useEffect(() => {
+    handleConnectionChange();
+    window.addEventListener("online", handleConnectionChange);
+    window.addEventListener("offline", handleConnectionChange);
 
-      return () => {
-        window.removeEventListener("online", handleConnectionChange);
-        window.removeEventListener("offline", handleConnectionChange);
-      };
-    }, [isDisconnected]);
-
-    const handleConnectionChange = () => {
-      const condition = navigator.onLine ? "online" : "offline";
-      if (condition === "online") {
-        const webPing = setInterval(() => {
-          (async function () {
-            try {
-              await fetch(GOOGLE, {
-                mode: "no-cors",
-              });
-              setIsDisconnected(() => {
-                clearInterval(webPing);
-                return false;
-              });
-            } catch (error) {
-              setIsDisconnected(true);
-            }
-          })();
-        }, 2000);
-        return;
-      }
-
-      return setIsDisconnected(true);
+    return () => {
+      window.removeEventListener("online", handleConnectionChange);
+      window.removeEventListener("offline", handleConnectionChange);
     };
+  }, [isDisconnected]);
 
-    return (
-      <div>
-        {isDisconnected && (
-          <ThemeProvider theme={CustomColors}>
-            <StyledOffline>
-              <StyledSpan>Offline</StyledSpan>
-            </StyledOffline>
-          </ThemeProvider>
-        )}
-        <ComposedComponent />
-      </div>
-    );
+  const handleConnectionChange = () => {
+    const condition = navigator.onLine ? "online" : "offline";
+    if (condition === "online") {
+      const webPing = setInterval(async () => {
+        try {
+          await fetch(GOOGLE, {
+            mode: "no-cors",
+          });
+          setIsDisconnected(() => {
+            clearInterval(webPing);
+            return false;
+          });
+        } catch (error) {
+          setIsDisconnected(true);
+        }
+      }, 4000);
+      return;
+    }
+
+    return setIsDisconnected(true);
   };
 
-  return NetworkDetector;
-}
+  return (
+    <div>
+      {isDisconnected && (
+        <ThemeProvider theme={CustomColors}>
+          <StyledOffline>
+            <StyledSpan>Offline</StyledSpan>
+          </StyledOffline>
+        </ThemeProvider>
+      )}
+      {props.children}
+    </div>
+  );
+};

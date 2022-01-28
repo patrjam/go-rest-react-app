@@ -31,14 +31,10 @@ export const PostsPage = () => {
   useEffect(() => {
     const handleGetPostsData = async () => {
       try {
-        const response = await customFetch(apiEndpoints.POSTS, "GET");
-        if (response.ok) {
-          const resJson = await response.json();
-          setAllPosts({ posts: resJson.data });
-        } else {
-          setAllPosts({ posts: [] });
-          setResponseFetchError(true);
-        }
+        const response = await customFetch(apiEndpoints.POSTS, {
+          method: "GET",
+        });
+        setAllPosts({ posts: response.json.data });
       } catch (error) {
         setResponseFetchError(true);
       }

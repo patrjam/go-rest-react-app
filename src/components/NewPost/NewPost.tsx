@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CustomFormInput } from "../CustomInputForm/CustomInputForm";
 import styled from "styled-components";
-import { CustomSubmitButton } from "../CustomButtons/CustomSubmitButton/CustomSubmitButton";
+import { StyledCustomSubmitButton } from "../CustomButtons/CustomSubmitButton/StyledCustomSubmitButton";
 import { CustomBackButton } from "../CustomButtons/CustomBackButton/CustomBackButton";
 import { apiEndpoints, PUBLIC_V1 } from "../../configs/apiEndpoints";
 import { appRoutesList } from "../../configs/appRoutesList";
@@ -40,7 +40,7 @@ export const NewPost = () => {
     body: "",
   });
   const [allUsers, setAllUsers] = useState<Users>({ users: [] });
-  const [statusMessage, setStatusMessage] = useState<number>(0);
+  const [statusMessage, setStatusMessage] = useState(0);
   const [displayedToastr, setDisplayedToastr] = useState(false);
   const [responseFetchError, setResponseFetchError] = useState(false);
 
@@ -50,14 +50,10 @@ export const NewPost = () => {
     }, 3000);
     const handleGetResponse = async () => {
       try {
-        const response = await customFetch(apiEndpoints.USERS, "GET");
-        if (response.ok === true) {
-          const resJson = await response.json();
-          setAllUsers({ users: resJson.data });
-        } else {
-          setAllUsers({ users: [] });
-          setResponseFetchError(true);
-        }
+        const response = await customFetch(apiEndpoints.USERS, {
+          method: "GET",
+        });
+        setAllUsers({ users: response.json.data });
       } catch (error) {
         setResponseFetchError(true);
       }
@@ -67,13 +63,19 @@ export const NewPost = () => {
 
   const handleSubmit = async (event: React.FormEvent<EventTarget>) => {
     const handlePostRequest = async () => {
-      const response = await customFetch(
-        `${PUBLIC_V1}/users/${postData.userId}/posts`,
-        "POST",
-        postData
-      );
-      setStatusMessage(response.status);
-      setDisplayedToastr(true);
+      try {
+        const response = await customFetch(
+          `${PUBLIC_V1}/users/${postData.userId}/posts`,
+          {
+            method: "POST",
+            body: JSON.stringify(postData),
+          }
+        );
+        setStatusMessage(response.status);
+        setDisplayedToastr(true);
+      } catch (error) {
+        setResponseFetchError(true);
+      }
     };
 
     handlePostRequest();
@@ -86,9 +88,7 @@ export const NewPost = () => {
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLSelectElement>
   ) => {
-    const { id, value } = event.target;
-
-    setPostData((prevState) => ({ ...prevState, [id]: value }));
+    setPostData((p) => ({ ...p, [event.target.id]: event.target.value }));
   };
 
   return (
@@ -136,7 +136,7 @@ export const NewPost = () => {
 
           <CustomBackButton url={appRoutesList.postsUrl}>Back</CustomBackButton>
 
-          <CustomSubmitButton>Save</CustomSubmitButton>
+          <StyledCustomSubmitButton>Save</StyledCustomSubmitButton>
         </form>
       )}
     </div>

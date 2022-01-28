@@ -8,7 +8,6 @@ import { UsersPage } from "./components/UsersPage/UsersPage";
 import styled from "styled-components";
 import { appRoutesList } from "./configs/appRoutesList";
 import { NewPost } from "./components/NewPost/NewPost";
-import NetworkDetector from "./components/NetworkDetector/NetworkDetector";
 import { ThemeProvider } from "styled-components";
 import { CustomColors } from "./colors/Colors";
 
@@ -18,26 +17,26 @@ const CustomFont = styled.div`
   box-sizing: border-box;
 `;
 
-function App() {
+export const App = () => {
   return (
     <div>
       <ThemeProvider theme={CustomColors}>
-      <CustomFont>
-        <Header />
-        <div>
-          <Routes>
-            <Route path={appRoutesList.homeUrl} element={<HomePage />} />
-            <Route path={appRoutesList.postsUrl} element={<PostsPage />} />
-            <Route path={appRoutesList.commentsUrl} element={<CommentsPage />} />
-            <Route path={appRoutesList.usersUrl} element={<UsersPage />} />
-            <Route path={appRoutesList.newPostUrl} element={<NewPost />} />
-          </Routes>
-        </div>
-      </CustomFont>
+        <CustomFont>
+          <Header />
+          <div>
+            <Routes>
+              <Route path={appRoutesList.homeUrl} element={<HomePage />} />
+              <Route path={appRoutesList.postsUrl} element={<PostsPage />} />
+              <Route
+                path={appRoutesList.commentsUrl}
+                element={<CommentsPage />}
+              />
+              <Route path={appRoutesList.usersUrl} element={<UsersPage />} />
+              <Route path={appRoutesList.newPostUrl} element={<NewPost />} />
+            </Routes>
+          </div>
+        </CustomFont>
       </ThemeProvider>
-      
     </div>
   );
-}
-
-export default NetworkDetector(App);
+};
