@@ -30,14 +30,11 @@ const StyledLogoLink = styled(Link)`
   padding: 25px;
 `;
 
-export const CustomBackButton = ({
-  children,
-  url,
-}: {
+export const CustomBackButton = (props: {
   children: React.ReactNode;
   url: string;
 }) => (
-  <StyledLogoLink to={url}>
-    <StyledCustomBackButton>{children}</StyledCustomBackButton>
+  <StyledLogoLink to={props.url}>
+    <StyledCustomBackButton>{props.children}</StyledCustomBackButton>
   </StyledLogoLink>
 );

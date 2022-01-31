@@ -21,8 +21,6 @@ const StyledCustomCreateButton = styled.button`
   }
 `;
 
-export const CustomCreateButton = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => <StyledCustomCreateButton>{children}</StyledCustomCreateButton>;
+export const CustomCreateButton = (props: { children: React.ReactNode }) => (
+  <StyledCustomCreateButton>{props.children}</StyledCustomCreateButton>
+);

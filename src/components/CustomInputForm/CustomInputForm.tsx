@@ -21,6 +21,6 @@ export const CustomFormInput = ({
 }: CustomInputFormType) => (
   <div>
     <StyledInput {...otherProps} />
-    {label ? <label>{label}</label> : null}
+    {label && <label>{label}</label>}
   </div>
 );
