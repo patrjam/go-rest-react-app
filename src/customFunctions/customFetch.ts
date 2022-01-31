@@ -7,10 +7,12 @@ export const customFetch = async (
   init.headers = bearerTokenAuthorization.headers;
   const response = await fetch(input, init);
 
-  if (response.ok) {
-    return {
-      json: await response.json(),
-      status: response.status,
-    };
-  } else throw { status: response.status };
+  if (!response.ok) {
+    throw new Error(`Response status code: ${response.status}`);
+  }
+
+  return {
+    fullResponse: response.clone(),
+    json: await response.json(),
+  };
 };

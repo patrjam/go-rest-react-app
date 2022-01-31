@@ -54,7 +54,7 @@ export const NewPost = () => {
         const response = await customFetch(apiEndpoints.USERS, {
           method: "GET",
         });
-        setAllUsers({ users: response.json.data });
+        setAllUsers({ users: (await response.fullResponse.json()).data });
       } catch (error) {
         setResponseFetchError(true);
       }
@@ -69,7 +69,7 @@ export const NewPost = () => {
           method: "POST",
           body: JSON.stringify(postData),
         });
-        setStatusMessage(response.status);
+        setStatusMessage(response.fullResponse.status);
         setDisplayedToastr(true);
       } catch (error) {
         setResponseFetchError(true);

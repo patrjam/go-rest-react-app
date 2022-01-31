@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { CustomColors } from "../../colors/Colors";
 import { GOOGLE } from "../../configs/apiEndpoints";
+import { customFetch } from "../../customFunctions/customFetch";
 
 const StyledOffline = styled.div`
   height: 10px;
@@ -36,7 +37,7 @@ export const NetworkDetector = (props: { children: React.ReactNode }) => {
     if (condition === "online") {
       const webPing = setInterval(async () => {
         try {
-          await fetch(GOOGLE, {
+          await customFetch(GOOGLE, {
             mode: "no-cors",
           });
           setIsDisconnected(() => {
@@ -44,9 +45,9 @@ export const NetworkDetector = (props: { children: React.ReactNode }) => {
             return false;
           });
         } catch (error) {
-          setIsDisconnected(true);
+          setIsDisconnected(false);
         }
-      }, 4000);
+      }, 5000);
       return;
     }
 

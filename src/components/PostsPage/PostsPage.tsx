@@ -34,7 +34,7 @@ export const PostsPage = () => {
         const response = await customFetch(apiEndpoints.POSTS, {
           method: "GET",
         });
-        setAllPosts({ posts: response.json.data });
+        setAllPosts({ posts: (await response.fullResponse.json()).data });
       } catch (error) {
         setResponseFetchError(true);
       }
