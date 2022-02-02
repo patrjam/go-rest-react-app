@@ -71,8 +71,9 @@ export const NewPost = () => {
         });
         setStatusMessage(response.fullResponse.status);
         setDisplayedToastr(true);
-      } catch (error) {
-        setResponseFetchError(true);
+      } catch (error: any) {
+        setStatusMessage(error.response.status);
+        setDisplayedToastr(true);
       }
     };
 
