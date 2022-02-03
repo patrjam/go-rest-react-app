@@ -1,18 +1,19 @@
-import React from "react";
-
 import styled from "styled-components";
 
-const StyledCustomCreateButton = styled.button`
-  width: 120px;
+export const StyledCustomSubmitButton = styled.button`
+  width: 100px;
   height: 35px;
-  background-color: ${(props) => props.theme.colors.salmon};
+  background-color: ${(props) => props.theme.colors.lime};
   color: ${(props) => props.theme.colors.white};
   border-radius: 0.95rem;
+  text-transform: uppercase;
   font-family: "Poppins";
   font-size: 13px;
   border: none;
   cursor: pointer;
-  margin-left: 10%;
+  margin: 80px auto;
+  float: right;
+  margin-right: 2rem;
 
   &:hover {
     background-color: ${(props) => props.theme.colors.grey};
@@ -20,7 +21,3 @@ const StyledCustomCreateButton = styled.button`
     border: 1px solid ${(props) => props.theme.colors.grey};
   }
 `;
-
-export const CustomCreateButton = (props: { children: React.ReactNode }) => (
-  <StyledCustomCreateButton>{props.children}</StyledCustomCreateButton>
-);

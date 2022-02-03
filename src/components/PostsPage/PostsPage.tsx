@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PostItem } from "../PostItem/PostItem";
 import { CustomCreateButton } from "../CustomButtons/CustomCreateButton/CustomCreateButton";
-import { bearerTokenAuth } from "../../configs/bearerTokenAuth";
-import { endpoints } from "../../configs/endpoints";
+import { apiEndpoints } from "../../configs/apiEndpoints";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { appRoutesList } from "../../configs/appRoutesList";
+import { NoDataFound } from "../NoDataFound/NoDataFound";
+import { customFetch } from "../../customFunctions/customFetch";
 
 const StyledH1 = styled.h1`
   text-align: center;
 `;
 
 const StyledTable = styled.table`
-  margin-left: 10%;
+  margin: auto;
 `;
 
 type PostsPageProps = {
@@ -18,47 +21,49 @@ type PostsPageProps = {
   title: string;
 };
 
-type Props = {};
-type State = {
+type Posts = {
   posts: PostsPageProps[];
 };
-class PostsPage extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+export const PostsPage = () => {
+  const [allPosts, setAllPosts] = useState<Posts>({ posts: [] });
+  const [responseFetchError, setResponseFetchError] = useState(false);
 
-    this.state = {
-      posts: [],
+  useEffect(() => {
+    const handleGetPostsData = async () => {
+      try {
+        const [data, response] = await customFetch<Posts["posts"]>(
+          apiEndpoints.POSTS,
+          {
+            method: "GET",
+          }
+        );
+        setAllPosts({ posts: data.data });
+      } catch (error) {
+        setResponseFetchError(true);
+      }
     };
-  }
+    handleGetPostsData();
+  }, []);
 
-  async fetchResponseJSON() {
-    const response = await fetch(endpoints.POSTS, bearerTokenAuth);
-    return await response.json();
-  }
-
-  async componentDidMount() {
-    const response = await this.fetchResponseJSON();
-    this.setState({ posts: response.data });
-  }
-
-  render() {
-    const { posts } = this.state;
-    return (
-      <div>
-        <StyledH1>POSTS PAGE</StyledH1>
+  return (
+    <div>
+      <StyledH1>POSTS PAGE</StyledH1>
+      <Link to={appRoutesList.newPostUrl}>
         <CustomCreateButton>Create post</CustomCreateButton>
-        <br />
-        <br />
+      </Link>
+      <br />
+      <br />
+      {responseFetchError ? (
+        <NoDataFound />
+      ) : (
         <StyledTable>
           <tbody>
-            {posts.map(({ id, title }) => (
+            {allPosts.posts.map(({ id, title }) => (
               <PostItem key={id} id={id} title={title} />
             ))}
           </tbody>
         </StyledTable>
-      </div>
-    );
-  }
-}
-
-export default PostsPage;
+      )}
+    </div>
+  );
+};
