@@ -1,14 +1,14 @@
 import { bearerTokenAuthorization } from "./../configs/bearerTokenAuthorization";
 
 type CustomFetch<TResponseJson> = {
-  response: Response;
   data: TResponseJson;
+  response: Response;
 };
 
 export const customFetch = async <TResponseJson>(
   input: RequestInfo,
   init: RequestInit = {}
-): Promise<[Response, CustomFetch<TResponseJson>]> => {
+): Promise<[CustomFetch<TResponseJson>, Response]> => {
   init.headers = Object.assign(bearerTokenAuthorization.headers, init.headers);
   const response = await fetch(input, init);
 
@@ -31,7 +31,7 @@ export const customFetch = async <TResponseJson>(
         https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
      */
 
-  return [response.clone(), data];
+  return [data, response.clone()];
 };
 
 export class HttpResponseError extends Error {

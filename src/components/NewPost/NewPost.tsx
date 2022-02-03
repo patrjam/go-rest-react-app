@@ -51,7 +51,7 @@ export const NewPost = () => {
     }, 3000);
     const handleGetResponse = async () => {
       try {
-        const [response, data] = await customFetch<Users["users"]>(
+        const [data, response] = await customFetch<Users["users"]>(
           apiEndpoints.USERS,
           {
             method: "GET",
@@ -68,7 +68,7 @@ export const NewPost = () => {
   const handleSubmit = async (event: React.FormEvent<EventTarget>) => {
     const handlePostRequest = async () => {
       try {
-        const [response, data] = await customFetch(
+        const [data, response] = await customFetch(
           getUserPostsUrl(postData.userId),
           {
             method: "POST",

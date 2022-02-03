@@ -31,7 +31,7 @@ export const PostsPage = () => {
   useEffect(() => {
     const handleGetPostsData = async () => {
       try {
-        const [response, data] = await customFetch<Posts["posts"]>(
+        const [data, response] = await customFetch<Posts["posts"]>(
           apiEndpoints.POSTS,
           {
             method: "GET",
