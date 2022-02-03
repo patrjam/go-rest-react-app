@@ -21,20 +21,23 @@ type PostsPageProps = {
   title: string;
 };
 
-type State = {
+type Posts = {
   posts: PostsPageProps[];
 };
 export const PostsPage = () => {
-  const [allPosts, setAllPosts] = useState<State>({ posts: [] });
+  const [allPosts, setAllPosts] = useState<Posts>({ posts: [] });
   const [responseFetchError, setResponseFetchError] = useState(false);
 
   useEffect(() => {
     const handleGetPostsData = async () => {
       try {
-        const response = await customFetch(apiEndpoints.POSTS, {
-          method: "GET",
-        });
-        setAllPosts({ posts: (await response.fullResponse.json()).data });
+        const [response, data] = await customFetch<Posts["posts"]>(
+          apiEndpoints.POSTS,
+          {
+            method: "GET",
+          }
+        );
+        setAllPosts({ posts: data.data });
       } catch (error) {
         setResponseFetchError(true);
       }

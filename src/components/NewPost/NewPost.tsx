@@ -51,10 +51,13 @@ export const NewPost = () => {
     }, 3000);
     const handleGetResponse = async () => {
       try {
-        const response = await customFetch(apiEndpoints.USERS, {
-          method: "GET",
-        });
-        setAllUsers({ users: (await response.fullResponse.json()).data });
+        const [response, data] = await customFetch<Users["users"]>(
+          apiEndpoints.USERS,
+          {
+            method: "GET",
+          }
+        );
+        setAllUsers({ users: data.data });
       } catch (error) {
         setResponseFetchError(true);
       }
@@ -65,11 +68,14 @@ export const NewPost = () => {
   const handleSubmit = async (event: React.FormEvent<EventTarget>) => {
     const handlePostRequest = async () => {
       try {
-        const response = await customFetch(getUserPostsUrl(postData.userId), {
-          method: "POST",
-          body: JSON.stringify(postData),
-        });
-        setStatusMessage(response.fullResponse.status);
+        const [response, data] = await customFetch(
+          getUserPostsUrl(postData.userId),
+          {
+            method: "POST",
+            body: JSON.stringify(postData),
+          }
+        );
+        setStatusMessage(response.status);
         setDisplayedToastr(true);
       } catch (error: any) {
         setStatusMessage(error.response.status);
