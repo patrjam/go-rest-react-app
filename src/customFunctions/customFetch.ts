@@ -1,4 +1,4 @@
-import { bearerTokenAuthorization } from "./../configs/bearerTokenAuthorization";
+import { bearerTokenAuthorization } from './../configs/bearerTokenAuthorization';
 
 type CustomFetch<TResponseJson> = {
   data: TResponseJson;
@@ -13,15 +13,15 @@ export const customFetch = async <TResponseJson>(
   const response = await fetch(input, init);
 
   const isJson = response.headers
-    .get("content-type")
-    ?.includes("application/json");
+    .get('content-type')
+    ?.includes('application/json');
   const data = isJson
     ? await response.clone().json()
     : await response.clone().text();
 
   if (!response.ok) {
     const error = (data && data.message) || response.status;
-    throw new HttpResponseError("Some problem with response: ", error);
+    throw new HttpResponseError('Some problem with response: ', error);
   }
 
   /*  NOTE: clone() method creates a copy. 

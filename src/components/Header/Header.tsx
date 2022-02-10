@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { ReactComponent as Logo } from "../../assets/home.svg";
-import styled from "styled-components";
-import { appRoutesList } from "../../configs/appRoutesList";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ReactComponent as Logo } from '../../assets/home.svg';
+import styled from 'styled-components';
+import { appRoutesList } from '../../configs/appRoutesList';
 
 const StyledMenu = styled.div`
   width: 85%;
@@ -11,7 +11,7 @@ const StyledMenu = styled.div`
   align-items: center;
   justify-content: flex-end;
 
-  &:hover  {
+  &:hover {
     cursor: pointer;
   }
 `;

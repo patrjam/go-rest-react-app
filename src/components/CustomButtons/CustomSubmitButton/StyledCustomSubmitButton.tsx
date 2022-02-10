@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledCustomSubmitButton = styled.button`
   width: 100px;
@@ -7,7 +7,7 @@ export const StyledCustomSubmitButton = styled.button`
   color: ${(props) => props.theme.colors.white};
   border-radius: 0.95rem;
   text-transform: uppercase;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-size: 13px;
   border: none;
   cursor: pointer;

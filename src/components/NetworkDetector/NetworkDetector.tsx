@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { ThemeProvider } from "styled-components";
-import { CustomColors } from "../../colors/Colors";
-import { GOOGLE } from "../../configs/apiEndpoints";
-import { customFetch } from "../../customFunctions/customFetch";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import { CustomColors } from '../../colors/Colors';
+import { GOOGLE } from '../../configs/apiEndpoints';
+import { customFetch } from '../../customFunctions/customFetch';
 
 const StyledOffline = styled.div`
   height: 10px;
@@ -23,22 +23,22 @@ export const NetworkDetector = (props: { children: React.ReactNode }) => {
 
   useEffect(() => {
     handleConnectionChange();
-    window.addEventListener("online", handleConnectionChange);
-    window.addEventListener("offline", handleConnectionChange);
+    window.addEventListener('online', handleConnectionChange);
+    window.addEventListener('offline', handleConnectionChange);
 
     return () => {
-      window.removeEventListener("online", handleConnectionChange);
-      window.removeEventListener("offline", handleConnectionChange);
+      window.removeEventListener('online', handleConnectionChange);
+      window.removeEventListener('offline', handleConnectionChange);
     };
   }, [isDisconnected]);
 
   const handleConnectionChange = () => {
-    const condition = navigator.onLine ? "online" : "offline";
-    if (condition === "online") {
+    const condition = navigator.onLine ? 'online' : 'offline';
+    if (condition === 'online') {
       const webPing = setInterval(async () => {
         try {
           await customFetch(GOOGLE, {
-            mode: "no-cors",
+            mode: 'no-cors',
           });
           setIsDisconnected(() => {
             clearInterval(webPing);

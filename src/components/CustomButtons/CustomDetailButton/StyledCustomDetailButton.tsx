@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledCustomDetailButton = styled.button`
   width: 80px;
@@ -7,7 +7,7 @@ export const StyledCustomDetailButton = styled.button`
   color: ${(props) => props.theme.colors.white};
   border-radius: 0.95rem;
   text-transform: uppercase;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-size: 13px;
   border: none;
   cursor: pointer;
