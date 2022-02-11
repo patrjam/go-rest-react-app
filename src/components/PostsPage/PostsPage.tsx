@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { PostItem } from "../PostItem/PostItem";
-import { CustomCreateButton } from "../CustomButtons/CustomCreateButton/CustomCreateButton";
-import { apiEndpoints } from "../../configs/apiEndpoints";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { appRoutesList } from "../../configs/appRoutesList";
-import { NoDataFound } from "../NoDataFound/NoDataFound";
-import { customFetch } from "../../customFunctions/customFetch";
+import React, { useEffect, useState } from 'react';
+import { PostItem } from '../PostItem/PostItem';
+import { CustomCreateButton } from '../CustomButtons/CustomCreateButton/CustomCreateButton';
+import { apiEndpoints } from '../../configs/apiEndpoints';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { appRoutesList } from '../../configs/appRoutesList';
+import { NoDataFound } from '../NoDataFound/NoDataFound';
+import { customFetch } from '../../customFunctions/customFetch';
 
 const StyledH1 = styled.h1`
   text-align: center;
@@ -31,10 +31,10 @@ export const PostsPage = () => {
   useEffect(() => {
     const handleGetPostsData = async () => {
       try {
-        const [data, response] = await customFetch<Posts["posts"]>(
+        const [data, response] = await customFetch<Posts['posts']>(
           apiEndpoints.POSTS,
           {
-            method: "GET",
+            method: 'GET',
           }
         );
         setAllPosts({ posts: data.data });

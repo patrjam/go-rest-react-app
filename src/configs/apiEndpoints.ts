@@ -1,5 +1,5 @@
-export const PUBLIC_API = "https://gorest.co.in/public/v1";
-export const GOOGLE = "//google.com";
+export const PUBLIC_API = 'https://gorest.co.in/public/v1';
+export const GOOGLE = '//google.com';
 
 export const apiEndpoints = {
   PUBLIC_API,

@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { responseMessages } from "../../constants/responseMessages";
+import React from 'react';
+import styled from 'styled-components';
+import { responseMessages } from '../../constants/responseMessages';
 
 type DivMessageProps = {
   isOpen: boolean;
@@ -17,7 +17,7 @@ const WarningDivMessage = styled.div<DivMessageProps>`
   background-color: ${(props) => props.theme.colors.lightYellow};
   opacity: ${(props) => (props.isOpen ? 1 : 0)};
   transition: all 0.2s;
-  visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
+  visibility: ${(props) => (props.isOpen ? 'visible' : 'hidden')};
 `;
 
 const ErrorDivMessage = styled.div<DivMessageProps>`
@@ -31,7 +31,7 @@ const ErrorDivMessage = styled.div<DivMessageProps>`
   background-color: ${(props) => props.theme.colors.lightRed};
   opacity: ${(props) => (props.isOpen ? 1 : 0)};
   transition: all 0.2s;
-  visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
+  visibility: ${(props) => (props.isOpen ? 'visible' : 'hidden')};
 `;
 
 const SuccessDivMessage = styled.div<DivMessageProps>`
@@ -45,7 +45,7 @@ const SuccessDivMessage = styled.div<DivMessageProps>`
   background-color: ${(props) => props.theme.colors.lightGreen};
   opacity: ${(props) => (props.isOpen ? 1 : 0)};
   transition: all 0.2s;
-  visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
+  visibility: ${(props) => (props.isOpen ? 'visible' : 'hidden')};
 `;
 
 type AlertMessageProps = {

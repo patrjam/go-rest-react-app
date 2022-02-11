@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { CustomFormInput } from "../CustomInputForm/CustomInputForm";
-import styled from "styled-components";
-import { StyledCustomSubmitButton } from "../CustomButtons/CustomSubmitButton/StyledCustomSubmitButton";
-import { CustomBackButton } from "../CustomButtons/CustomBackButton/CustomBackButton";
-import { apiEndpoints } from "../../configs/apiEndpoints";
-import { appRoutesList } from "../../configs/appRoutesList";
-import { AlertMessage } from "../AlertMessage/AlertMessage";
-import { NoDataFound } from "../NoDataFound/NoDataFound";
-import { customFetch } from "../../customFunctions/customFetch";
-import { getUserPostsUrl } from "../../customFunctions/getEndpoints";
+import React, { useState, useEffect } from 'react';
+import { CustomFormInput } from '../CustomInputForm/CustomInputForm';
+import styled from 'styled-components';
+import { StyledCustomSubmitButton } from '../CustomButtons/CustomSubmitButton/StyledCustomSubmitButton';
+import { CustomBackButton } from '../CustomButtons/CustomBackButton/CustomBackButton';
+import { apiEndpoints } from '../../configs/apiEndpoints';
+import { appRoutesList } from '../../configs/appRoutesList';
+import { AlertMessage } from '../AlertMessage/AlertMessage';
+import { NoDataFound } from '../NoDataFound/NoDataFound';
+import { customFetch } from '../../customFunctions/customFetch';
+import { getUserPostsUrl } from '../../customFunctions/getEndpoints';
 
 const StyledH1 = styled.h1`
   text-align: center;
@@ -22,7 +22,7 @@ const StyledSelect = styled.select`
   font-size: 14px;
   border: none;
   font-size: 16px;
-  font-family: "Poppins";
+  font-family: 'Poppins';
 `;
 
 type UsersProps = {
@@ -36,9 +36,9 @@ type Users = {
 
 export const NewPost = () => {
   const [postData, setPostData] = useState({
-    userId: "",
-    title: "",
-    body: "",
+    userId: '',
+    title: '',
+    body: '',
   });
   const [allUsers, setAllUsers] = useState<Users>({ users: [] });
   const [statusMessage, setStatusMessage] = useState(0);
@@ -51,10 +51,10 @@ export const NewPost = () => {
     }, 3000);
     const handleGetResponse = async () => {
       try {
-        const [data, response] = await customFetch<Users["users"]>(
+        const [data, response] = await customFetch<Users['users']>(
           apiEndpoints.USERS,
           {
-            method: "GET",
+            method: 'GET',
           }
         );
         setAllUsers({ users: data.data });
@@ -71,7 +71,7 @@ export const NewPost = () => {
         const [data, response] = await customFetch(
           getUserPostsUrl(postData.userId),
           {
-            method: "POST",
+            method: 'POST',
             body: JSON.stringify(postData),
           }
         );
@@ -85,7 +85,7 @@ export const NewPost = () => {
 
     handlePostRequest();
     event.preventDefault();
-    setPostData({ userId: "", title: "", body: "" });
+    setPostData({ userId: '', title: '', body: '' });
   };
 
   const handleChange = (
@@ -112,28 +112,28 @@ export const NewPost = () => {
       ) : (
         <form onSubmit={handleSubmit}>
           <StyledSelect
-            id="userId"
+            id='userId'
             onChange={handleChange}
             required
             value={postData.userId}
           >
-            <option value=""> -- select an user -- </option>
+            <option value=''> -- select an user -- </option>
             {allUsers.users.map(({ id, name }) => (
               <option key={id} value={id}>{`${name} [ID:${id}]`}</option>
             ))}
           </StyledSelect>
 
           <CustomFormInput
-            id="title"
+            id='title'
             value={postData.title}
-            label="Title"
+            label='Title'
             onChange={handleChange}
             required
           />
 
           <CustomFormInput
-            id="body"
-            label="Description"
+            id='body'
+            label='Description'
             value={postData.body}
             onChange={handleChange}
             required

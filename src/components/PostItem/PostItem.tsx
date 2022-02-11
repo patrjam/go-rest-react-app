@@ -1,6 +1,6 @@
-import React from "react";
-import { StyledCustomDetailButton } from "../CustomButtons/CustomDetailButton/StyledCustomDetailButton";
-import colors from "styled-components";
+import React from 'react';
+import { StyledCustomDetailButton } from '../CustomButtons/CustomDetailButton/StyledCustomDetailButton';
+import colors from 'styled-components';
 
 const StyledRowId = colors.td`
   color: ${(props) => props.theme.colors.salmon};

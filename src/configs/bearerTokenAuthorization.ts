@@ -1,4 +1,4 @@
-import { appEnvs } from "./envValidator";
+import { appEnvs } from './envValidator';
 
 export const bearerTokenAuthorization = {
   headers: {

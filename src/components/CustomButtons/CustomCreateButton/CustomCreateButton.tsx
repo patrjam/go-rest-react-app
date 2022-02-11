@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const StyledCustomCreateButton = styled.button`
   width: 120px;
@@ -8,7 +8,7 @@ const StyledCustomCreateButton = styled.button`
   background-color: ${(props) => props.theme.colors.salmon};
   color: ${(props) => props.theme.colors.white};
   border-radius: 0.95rem;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-size: 13px;
   border: none;
   cursor: pointer;
