@@ -8,7 +8,7 @@ import { appRoutesList } from '../../configs/appRoutesList';
 import { NoDataFound } from '../NoDataFound/NoDataFound';
 import { customFetch } from '../../customFunctions/customFetch';
 
-const StyledH1 = styled.h1`
+export const StyledH1 = styled.h1`
   text-align: center;
 `;
 
@@ -31,7 +31,7 @@ export const PostsPage = () => {
   useEffect(() => {
     const handleGetPostsData = async () => {
       try {
-        const [data, response] = await customFetch<Posts['posts']>(
+        const [data, response] = await customFetch<{ data: Posts['posts'] }>(
           apiEndpoints.POSTS,
           {
             method: 'GET',

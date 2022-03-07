@@ -24,7 +24,7 @@ const StyledCustomBackButton = styled.button`
   }
 `;
 
-const StyledLogoLink = styled(Link)`
+export const StyledLogoLink = styled(Link)`
   height: 100%;
   width: 40px;
   padding: 25px;
