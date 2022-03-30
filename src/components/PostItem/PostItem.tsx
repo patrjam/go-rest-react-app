@@ -1,7 +1,7 @@
 import React from 'react';
 import { CustomDetailButton } from '../CustomButtons/CustomDetailButton/StyledCustomDetailButton';
 import colors from 'styled-components';
-import { appRoutesList } from '../../configs/appRoutesList';
+import { getPostDetail } from '../../configs/appRoutesList';
 
 const StyledRowId = colors.td`
   color: ${(props) => props.theme.colors.salmon};
@@ -19,7 +19,7 @@ export const PostItem = ({ id, title }: PostItemProps) => {
 
       <td>{title}</td>
       <td>
-        <CustomDetailButton url={`${appRoutesList.postDetail}/${id}`}>
+        <CustomDetailButton url={getPostDetail(id)}>
           Detail
         </CustomDetailButton>
       </td>

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { customFetch } from '../../customFunctions/customFetch';
-import { apiEndpoints } from '../../configs/apiEndpoints';
 import { CustomFormInput } from '../CustomInputForm/CustomInputForm';
 import styled from 'styled-components';
 import { CustomBackButton } from '../CustomButtons/CustomBackButton/CustomBackButton';
@@ -8,6 +6,7 @@ import { appRoutesList } from '../../configs/appRoutesList';
 import { StyledH1 } from '../PostsPage/PostsPage';
 import { useParams } from 'react-router-dom';
 import { NoDataFound } from '../NoDataFound/NoDataFound';
+import { getPost, Post } from '../../services/postServices';
 
 const StyledTextarea = styled.textarea`
   font-size: 16px;
@@ -39,17 +38,6 @@ export const CustomTextarea = ({
   </StyledDiv>
 );
 
-type PostProps = {
-  id: number;
-  user_id: number;
-  title: string;
-  body: string;
-};
-
-type Post = {
-  post: PostProps;
-};
-
 export const PostDetail = () => {
   const [postDetail, setPostDetail] = useState<Post>({
     post: {
@@ -65,13 +53,7 @@ export const PostDetail = () => {
   useEffect(() => {
     const handleGetResponse = async () => {
       try {
-        const [data, response] = await customFetch<Post['post']>(
-          `${apiEndpoints.POSTS_V2}/${id}`,
-
-          {
-            method: 'GET',
-          }
-        );
+        const [data, response] = await getPost(id);
         setPostDetail({ post: data });
       } catch (error) {
         setResponseFetchError(true);
@@ -109,9 +91,7 @@ export const PostDetail = () => {
           ></CustomTextarea>
         </>
       )}
-      <CustomBackButton url={`${appRoutesList.postsUrl}`}>
-        Back
-      </CustomBackButton>
+      <CustomBackButton url={appRoutesList.postsUrl}>Back</CustomBackButton>
     </div>
   );
 };
