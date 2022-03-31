@@ -51,7 +51,7 @@ export const NewPost = () => {
     }, 3000);
     const handleGetResponse = async () => {
       try {
-        const [data, response] = await customFetch<Users['users']>(
+        const [data, response] = await customFetch<{ data: Users['users'] }>(
           apiEndpoints.USERS,
           {
             method: 'GET',
@@ -112,28 +112,28 @@ export const NewPost = () => {
       ) : (
         <form onSubmit={handleSubmit}>
           <StyledSelect
-            id='userId'
+            id={'userId'}
             onChange={handleChange}
             required
             value={postData.userId}
           >
-            <option value=''> -- select an user -- </option>
+            <option value={''}> -- select an user -- </option>
             {allUsers.users.map(({ id, name }) => (
               <option key={id} value={id}>{`${name} [ID:${id}]`}</option>
             ))}
           </StyledSelect>
 
           <CustomFormInput
-            id='title'
+            id={'title'}
             value={postData.title}
-            label='Title'
+            label={'Title'}
             onChange={handleChange}
             required
           />
 
           <CustomFormInput
-            id='body'
-            label='Description'
+            id={'body'}
+            label={'Description'}
             value={postData.body}
             onChange={handleChange}
             required

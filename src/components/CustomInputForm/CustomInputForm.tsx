@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { StyledDiv } from '../PostDetail/PostDetail';
 
 const StyledInput = styled.input`
   font-size: 16px;
@@ -13,14 +14,15 @@ const StyledInput = styled.input`
 
 type CustomInputFormType = {
   label: string;
-} & React.InputHTMLAttributes<HTMLInputElement>;
+} & React.InputHTMLAttributes<HTMLInputElement>
+  ;
 
 export const CustomFormInput = ({
   label,
   ...otherProps
 }: CustomInputFormType) => (
-  <div>
+  <StyledDiv>
     <StyledInput {...otherProps} />
     {label && <label>{label}</label>}
-  </div>
+  </StyledDiv>
 );

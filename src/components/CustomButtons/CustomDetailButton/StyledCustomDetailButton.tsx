@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { StyledLogoLink } from '../CustomBackButton/CustomBackButton';
 
 export const StyledCustomDetailButton = styled.button`
   width: 80px;
@@ -18,3 +19,15 @@ export const StyledCustomDetailButton = styled.button`
     border: 1px solid ${(props) => props.theme.colors.grey};
   }
 `;
+
+export const CustomDetailButton = (props: {
+  children: React.ReactNode;
+  url: string;
+  onClick?: React.MouseEventHandler;
+}) => (
+  <StyledLogoLink to={props.url}>
+    <StyledCustomDetailButton onClick={props.onClick}>
+      {props.children}
+    </StyledCustomDetailButton>
+  </StyledLogoLink>
+);

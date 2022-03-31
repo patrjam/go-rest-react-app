@@ -1,14 +1,9 @@
 import { bearerTokenAuthorization } from './../configs/bearerTokenAuthorization';
 
-type CustomFetch<TResponseJson> = {
-  data: TResponseJson;
-  response: Response;
-};
-
 export const customFetch = async <TResponseJson>(
   input: RequestInfo,
   init: RequestInit = {}
-): Promise<[CustomFetch<TResponseJson>, Response]> => {
+): Promise<[TResponseJson, Response]> => {
   init.headers = Object.assign(bearerTokenAuthorization.headers, init.headers);
   const response = await fetch(input, init);
 

@@ -10,6 +10,7 @@ import { appRoutesList } from './configs/appRoutesList';
 import { NewPost } from './components/NewPost/NewPost';
 import { ThemeProvider } from 'styled-components';
 import { CustomColors } from './colors/Colors';
+import { PostDetail } from './components/PostDetail/PostDetail';
 
 const CustomFont = styled.div`
   font-family: 'Poppins';
@@ -33,6 +34,7 @@ export const App = () => {
               />
               <Route path={appRoutesList.usersUrl} element={<UsersPage />} />
               <Route path={appRoutesList.newPostUrl} element={<NewPost />} />
+              <Route path={appRoutesList.postDetailId} element={<PostDetail />} /> 
             </Routes>
           </div>
         </CustomFont>
