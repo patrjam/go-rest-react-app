@@ -34,7 +34,7 @@ export const App = () => {
               />
               <Route path={appRoutesList.usersUrl} element={<UsersPage />} />
               <Route path={appRoutesList.newPostUrl} element={<NewPost />} />
-               <Route path={appRoutesList.postDetailId} element={<PostDetail />} /> 
+              <Route path={appRoutesList.postDetailId} element={<PostDetail />} /> 
             </Routes>
           </div>
         </CustomFont>

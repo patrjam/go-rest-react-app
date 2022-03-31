@@ -12,7 +12,7 @@ export type Post = {
   post: PostProps;
 };
 
-export const getPost = async (id: any) => {
+export const getPost = async (id: string | undefined) => {
   return await customFetch<Post['post']>(
     `${apiEndpoints.POSTS_V2}/${id}`,
     {
